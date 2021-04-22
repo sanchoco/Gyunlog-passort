@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Gyunlog - 상세 페이지</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="/css/bootstrap.css" rel="stylesheet">
+
+	<!-- Custom fonts for this template -->
+	<link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
+		rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="/css/one-page-wonder.css" rel="stylesheet">
+</head>
+
+<body>
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="/">Gyunlog</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+
+				<!-- 로그인 전일 때 -->
+				<ul id="before_login" class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/">홈으로</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/login">로그인</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/register">회원가입</a>
+					</li>
+				</ul>
+
+				<!-- 로그인이 되어 있을 때 -->
+				<ul id="after_login" class="navbar-nav ml-auto d-none">
+					<li class="nav-item">
+						<a class="nav-link" href="/">홈으로</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/post">글쓰기</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#" onclick="logout()">로그아웃</a>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+	</nav>
+
+	<header class="masthead text-center text-white">
+		<div class="masthead-content">
+			<div class="container">
+				<h1 class="masthead-heading mb-0">상세 페이지</h1>
+			</div>
+		</div>
+	</header>
+
+	<div class="container masthead-content mt-5 mb-5" style="min-height: 500px;">
+		<!-- Content here -->
+			<h4>제목: <span id="title"> </span></h4>
+			<h5 class="mt-4">닉네임</h4> <span id="nickname" style="white-space: pre-wrap; font-size: 1.2em;"> </span>
+			<h5 class="mt-4">작성일</h4> <span id="date" style="white-space: pre-wrap; font-size: 1.2em;"> </span>
+			<h5 class="mt-4">내용</h4>
+			<span style="display:block;">
+				<pre id="content" style="white-space: pre-wrap; font-size: 1.2em;">
+
+				</pre>
+			</span>
+			<div class="mt-5 mb-4">
+			<button onclick="window.location.href='/'" class="btn btn-dark mr-2" type="button">목록</button>
+			<button type="button" id="update_btn" class="btn btn-primary mr-2" onclick="window.location.href='/update'">수정</button>
+			<button type="button" id="delete_btn" onclick="delete_data()" class="btn btn-danger" style="margin-right:15px;" >삭제</button>
+			</div>
+			<hr>
+
+			<div class="mt-4">
+				<h3>댓글</h3>
+				<div id="comment_form" class="input-group mb-3">
+					<input id="comment" type="text" class="form-control" placeholder="댓글을 입력하세요." >
+					<button  class="btn btn-primary" type="button" id="comment_btn">댓글 등록</button>
+				</div>
+				<div id="comment_wrap">
+					<table class="table">
+						<thead>
+							<tr>
+								<th style="min-width:4rem;">닉네임</th>
+								<th style="min-width:9rem;">내용</th>
+								<th style="text-align:center;">작성일</th>
+								<th style="min-width:2.5rem"></th>
+								<th style="min-width:2.5rem"></th>
+							</tr>
+						</thead>
+						<tbody id="comment_table">
+
+						</tbody>
+
+					</table>
+				</div>
+			</div>
+	</div>
+
+
+	<!-- Footer -->
+	<footer class="py-5 bg-black">
+		<div class="container">
+			<p class="m-0 text-center text-white small">Copyright &copy; Your Website 2020</p>
+		</div>
+		<!-- /.container -->
+	</footer>
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/bootstrap.bundle.js"></script>
+	<script src="/js/detail.js"></script>
+	<script src="/js/common.js"></script>
+</body>
+
+</html>

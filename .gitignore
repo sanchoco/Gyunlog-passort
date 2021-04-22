@@ -1,0 +1,14 @@
+# os
+.DS_Store
+
+# 패키지
+node_modules
+package-lock.json
+
+# db 및 보안 정보
+db.js
+secret_key.js
+
+# test
+test.js
+verification.spec.js
