@@ -9,6 +9,9 @@ router.use('/register', [registerRouter]);
 // 로그인
 const loginRouter = require('./login');
 router.use('/login', [loginRouter]);
+// 로그아웃
+const logoutRouter = require('./logout');
+router.use('/logout', [logoutRouter]);
 
 // 새 글
 const newRouter = require('./new');
@@ -27,7 +30,7 @@ const userRouter = require('./user');
 router.use('/user', [userRouter]);
 
 // 상세 페이지
-router.get('/:Id', async (req, res) => {
+router.get('/:Id', (req, res) => {
 	res.sendFile(path.resolve(__dirname, '../views/detail.html'));
 });
 

@@ -19,18 +19,20 @@ function goRegister() {
 }
 
 function logout() {
-	localStorage.clear();
-	goHome();
+	window.location.href = '/logout';
 }
 
 function checkLogin() {
-	if (localStorage.token) {
-		$('#before_login').addClass('d-none');
-		$('#after_login').removeClass('d-none');
-		return true;
-	} else {
-		$('#before_login').removeClass('d-none');
-		$('#after_login').addClass('d-none');
-		return false;
-	}
+	$.ajax({
+		type: 'get',
+		url: `/user`,
+		success: function (response) {
+			$('#before_login').addClass('d-none');
+			$('#after_login').removeClass('d-none');
+		},
+		error: function (xhr, textStatus, error) {
+			$('#before_login').removeClass('d-none');
+			$('#after_login').addClass('d-none');
+		}
+	});
 }

@@ -1,10 +1,7 @@
 // new.js
 // index.js
 $(document).ready(function () {
-	if (!localStorage.getItem('token')) {
-		alert('로그인이 필요한 기능입니다.');
-		window.location.href = '/';
-	}
+
 });
 
 function posting() {
@@ -14,9 +11,6 @@ function posting() {
 	$.ajax({
 		type: 'POST',
 		url: `/new`,
-		headers: {
-			token: localStorage.getItem('token')
-		},
 		data: {
 			title: title,
 			content: content

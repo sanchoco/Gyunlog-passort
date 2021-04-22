@@ -1,11 +1,6 @@
 // update.js
 $(document).ready(function () {
-	if (!localStorage.getItem('token')) {
-		alert('로그인한 사용자만 수정할 수 있습니다.');
-		window.history.back();
-	} else {
-		get_data();
-	}
+	get_data();
 });
 
 function get_data() {
@@ -27,9 +22,6 @@ function update_data(postId) {
 	$.ajax({
 		type: 'PUT',
 		url: `/list/` + postId + '/update',
-		headers: {
-			token: localStorage.getItem('token')
-		},
 		data: {
 			title: title,
 			content: content

@@ -4,17 +4,20 @@ $(document).ready(function () {
 	show_data();
 	show_comment();
 
-	if (!localStorage.getItem('token')) {
-		$('#comment_form').addClass('d-none');
-	}
+	$.ajax({
+		type: 'get',
+		url: `/user`,
+		success: function (response) {
+		},
+		error: function (xhr, textStatus, error) {
+			$('#comment_form').addClass('d-none');
+		}
+	});
 });
 function show_data() {
 	$.ajax({
 		type: 'get',
 		url: `/list${window.location.pathname}`,
-		headers: {
-			token: localStorage.getItem('token')
-		},
 		success: function (response) {
 			$('#title').text(response['title']);
 			$('#nickname').text(response['nickname']);
@@ -59,9 +62,6 @@ function comment_add(postId) {
 	$.ajax({
 		type: 'POST',
 		url: `comment/${postId}`,
-		headers: {
-			token: localStorage.getItem('token')
-		},
 		data: {
 			comment: comment
 		},
@@ -87,9 +87,6 @@ function show_comment() {
 	$.ajax({
 		type: 'GET',
 		url: `/comment${window.location.pathname}`,
-		headers: {
-			token: localStorage.getItem('token')
-		},
 		success: function (response) {
 			let temp_html = '';
 			for (info of response) {
@@ -136,9 +133,6 @@ function delete_comment(commentId) {
 		$.ajax({
 			type: 'DELETE',
 			url: `comment/${commentId}`,
-			headers: {
-				token: localStorage.getItem('token')
-			},
 			data: {
 				commentId: commentId
 			},
@@ -163,9 +157,6 @@ function edit_comment_submit(commentId) {
 	$.ajax({
 		type: 'PUT',
 		url: `comment/${commentId}`,
-		headers: {
-			token: localStorage.getItem('token')
-		},
 		data: {
 			commentId: commentId,
 			comment: text

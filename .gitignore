@@ -8,7 +8,7 @@ package-lock.json
 # db 및 보안 정보
 db.js
 secret_key.js
-
+session-store.db
 # test
 test.js
 verification.spec.js

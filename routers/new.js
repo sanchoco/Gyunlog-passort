@@ -5,9 +5,6 @@ const User = require('../schemas/user');
 // XSS 방지
 const sanitizeHtml = require('sanitize-html');
 const path = require('path');
-const authMiddleware = require('../middlewares/auth');
-const jwt = require('jsonwebtoken');
-const key = require('../secret_key');
 
 // 새로운 글 쓰기
 router.get('/', (req, res) => {
@@ -15,18 +12,10 @@ router.get('/', (req, res) => {
 });
 
 // 새글 작성 처리
-router.post('/', authMiddleware, async (req, res) => {
+router.post('/', async (req, res) => {
 	const data = await req.body;
-	const { token } = req.headers;
-	const { userId } = jwt.verify(token, key);
 
-	const user = await User.findOne({ _id: userId })
-		.exec()
-		.catch((err) => {
-			res.json({ msg: 'fail' });
-			return;
-		});
-	if (!user) {
+	if (!req.user) {
 		res.json({ msg: 'fail' });
 		return;
 	}
@@ -44,7 +33,7 @@ router.post('/', authMiddleware, async (req, res) => {
 		await Post.create({
 			postId: index,
 			title: title,
-			nickname: user.nickname,
+			nickname: req.user.nickname,
 			content: content,
 			date: Date.now()
 		});

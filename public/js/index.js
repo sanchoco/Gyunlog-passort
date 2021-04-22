@@ -1,15 +1,23 @@
 // index.js
 $(document).ready(function () {
 	$('#contents').empty();
-	whoru();
+
 	show_list();
-	if (checkLogin()) {
-		$('#before_login_btn').addClass('d-none');
-		$('#after_login_btn').removeClass('d-none');
-	} else {
-		$('#before_login_btn').removeClass('d-none');
-		$('#after_login_btn').addClass('d-none');
-	}
+
+	$.ajax({
+		type: 'get',
+		url: `/user`,
+		success: (response) => {
+			let nickname = response.nickname;
+			$('#whoru').text(`${nickname}님, 안녕하세요!`);
+			$('#before_login_btn').addClass('d-none');
+			$('#after_login_btn').removeClass('d-none');
+		},
+		error: () => {
+			$('#before_login_btn').removeClass('d-none');
+			$('#after_login_btn').addClass('d-none');
+		}
+	});
 });
 function show_list() {
 	$.ajax({
@@ -31,23 +39,4 @@ function show_list() {
 			$('#contents').append(temp_html);
 		}
 	});
-}
-
-function whoru() {
-	if (localStorage.token) {
-		$.ajax({
-			type: 'get',
-			url: `/user`,
-			headers: {
-				token: localStorage.getItem('token')
-			},
-			success: function (response) {
-				let nickname = response.nickname;
-				$('#whoru').text(`${nickname}님, 안녕하세요!`);
-			},
-			error: function (xhr, status, err) {
-				logout();
-			}
-		});
-	}
 }

@@ -1,11 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../schemas/posting');
-const User = require('../schemas/user');
 const Comment = require('../schemas/comment');
-const authMiddleware = require('../middlewares/auth');
-const jwt = require('jsonwebtoken');
-const key = require('../secret_key');
 // XSS 방지
 const sanitizeHtml = require('sanitize-html');
 // 시간 표기 설정
@@ -13,14 +8,12 @@ const moment = require('moment');
 require('moment-timezone');
 moment.tz.setDefault('Asia/Seoul');
 
-router.get('/:commentId', async (req, res) => {
-	const id = req.params.commentId;
+router.get('/:postId', async (req, res) => {
+	const id = req.params.postId;
 	comments = await Comment.find({ postId: id }).sort({ commentId: -1 });
-	let user;
+	let userNickname;
 	try {
-		const { token } = req.headers;
-		const { userId } = jwt.verify(token, key);
-		user = await User.findOne({ _id: userId }, { nickname: true });
+		if (req.user) userNickname = req.user.nickname;
 	} catch (err) {}
 
 	let data = [];
@@ -31,19 +24,17 @@ router.get('/:commentId', async (req, res) => {
 		const date = moment(comments[i]['date']).format('MM/DD HH:mm');
 		const comment = comments[i]['comment'];
 		let permission = 0;
-		if (user && user['nickname'] == comments[i]['nickname']) permission = 1;
+		if (userNickname == comments[i]['nickname']) permission = 1;
 		data.push({ commentId, postId, nickname, date, comment, permission });
 	}
 	res.json(data);
 });
 
 // 새 댓글 작성
-router.post('/:postId', authMiddleware, async (req, res) => {
+router.post('/:postId', async (req, res) => {
 	const id = req.params.postId;
 	const data = await req.body;
-	const { token } = req.headers;
-	const { userId } = jwt.verify(token, key);
-	const user = await User.findOne({ _id: userId }, { nickname: true });
+	const user = req.user;
 	if (!data.comment) {
 		res.json({ msg: 'empty' });
 		return;
@@ -57,28 +48,30 @@ router.post('/:postId', authMiddleware, async (req, res) => {
 	if (lasted) {
 		index = lasted['commentId'] + 1;
 	}
-	await Comment.create({
-		commentId: index,
-		comment: sanitizeHtml(data.comment),
-		postId: id,
-		nickname: user.nickname,
-		date: Date.now()
-	});
-	res.json({ msg: 'success' });
+	try {
+		await Comment.create({
+			commentId: index,
+			comment: sanitizeHtml(data.comment),
+			postId: id,
+			nickname: user.nickname,
+			date: Date.now()
+		});
+		res.json({ msg: 'success' });
+	} catch (err) {
+		res.json({ msg: 'fail' });
+	}
 });
 
 // 댓글 수정
-router.put('/:commentId', authMiddleware, async (req, res) => {
+router.put('/:commentId', async (req, res) => {
 	const commentId = req.params.commentId;
 	const data = await req.body;
 	if (!data.comment) {
 		res.json({ msg: 'empty' });
 		return;
 	}
-	const { token } = req.headers;
-	const { userId } = jwt.verify(token, key);
 	try {
-		const user = await User.findOne({ _id: userId }, { nickname: true });
+		const user = req.user;
 		const comment = await Comment.findOne({ commentId }, { nickname: true });
 		if (user.nickname == comment.nickname) {
 			await Comment.updateOne({ commentId }, { comment: data.comment });
@@ -90,12 +83,10 @@ router.put('/:commentId', authMiddleware, async (req, res) => {
 });
 
 // 댓글 삭제
-router.delete('/:commentId', authMiddleware, async (req, res) => {
+router.delete('/:commentId', async (req, res) => {
 	const commentId = req.params.commentId;
-	const { token } = req.headers;
-	const { userId } = jwt.verify(token, key);
 	try {
-		const user = await User.findOne({ _id: userId }, { nickname: true });
+		const user = req.user;
 		const comment = await Comment.findOne({ commentId }, { nickname: true });
 		if (user.nickname == comment.nickname) {
 			await Comment.deleteOne({ commentId });
