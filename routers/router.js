@@ -6,12 +6,9 @@ const path = require('path');
 const registerRouter = require('./register');
 router.use('/register', [registerRouter]);
 
-// 로그인
-const loginRouter = require('./login');
-router.use('/login', [loginRouter]);
-// 로그아웃
-const logoutRouter = require('./logout');
-router.use('/logout', [logoutRouter]);
+// 로그인, 로그아웃
+const authRouter = require('./auth');
+router.use('/auth', [authRouter]);
 
 // 새 글
 const newRouter = require('./new');

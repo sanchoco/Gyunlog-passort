@@ -14,7 +14,6 @@ router.get('/', (req, res) => {
 // 새글 작성 처리
 router.post('/', async (req, res) => {
 	const data = await req.body;
-
 	if (!req.user) {
 		res.json({ msg: 'fail' });
 		return;

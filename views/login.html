@@ -41,7 +41,7 @@
 							<a class="nav-link" href="/">홈으로</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="/login">로그인</a>
+							<a class="nav-link" href="/auth/">로그인</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="/register">회원가입</a>
@@ -61,7 +61,7 @@
 
 		<div class="container masthead-content mt-5 mb-5">
 			<!-- Content here -->
-			<form action="/login" method="POST">
+			<form action="/auth/login" method="POST">
 			<p class="h2 card-title">로그인</p>
 			<div class="mb-1">
 				<label class="form-label form-control-lg">아이디</label>
@@ -74,9 +74,11 @@
 			</div>
 
 			<div class="d-grid gap-2 mt-4 mb-4">
-				<button type="submit" class="btn btn-primary btn-lg" >로그인</button><!-- onclick="login()" -->
+				<button type="submit" class="btn btn-primary btn-lg" >로그인</button>
+				<img class="ml-4" src='/img/naver_login.png' onclick="window.location.href='/auth/naver'" style="max-height: 3rem;"/>
 			</div>
 			</form>
+
 			<hr />
 			<div class="d-grid gap-2 mt-4 mb-5">
 				<p class="h2 card-title">회원가입</p>
