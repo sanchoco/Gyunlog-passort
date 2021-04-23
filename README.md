@@ -1,4 +1,4 @@
-# Gyunlog
+# Gyunlog - passport
 >로그인하여 글을 남겨보세요! 😀   
 
 
@@ -7,7 +7,7 @@
 ![ezgif-3-fcb76ddd2d2e](https://user-images.githubusercontent.com/58046372/113247144-5bd10580-92f5-11eb-93e2-26127610c366.gif)
 
 ## 사용한 것
-Javascript, Node.js, mongoDB, JWT
+Javascript, Node.js, mongoDB, Passport(Session-Cookie)
    
    
 ## 주요 기능
