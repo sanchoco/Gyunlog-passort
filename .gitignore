@@ -6,9 +6,9 @@ node_modules
 package-lock.json
 
 # db 및 보안 정보
-db.js
 secret_key.js
-session-store.db
+
+.env
 # test
 test.js
 verification.spec.js

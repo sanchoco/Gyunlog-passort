@@ -3,20 +3,24 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+// 환경 변수
+require('dotenv').config();
+
 // MongoDB
-const connect = require('./schemas/db');
-connect();
+const mongoose = require('./schemas/db');
 
 // session
 const session = require('express-session');
-// const FileStore = require('session-file-store')(session);
-const LokiStore = require('connect-loki')(session);
+const MongoStore = require('connect-mongo');
 app.use(
 	session({
-		secret: require('./secret_key'),
+		secret: process.env.SECRET_KEY,
 		resave: false,
 		saveUninitialized: true,
-		store: new LokiStore()
+		store: MongoStore.create({
+			mongoUrl: process.env.MONGO_URL,
+			ttl: 1 * 24 * 60 * 60
+		})
 	})
 );
 
