@@ -28,10 +28,10 @@ router.get('/logout', async (req, res) => {
 			req.session.destroy();
 		}
 		req.session.save(function () {
-			res.redirect('/');
+			res.redirect(req.headers.referer);
 		});
 	} catch (err) {
-		res.redirect('/');
+		res.redirect(req.headers.referer);
 	}
 });
 
