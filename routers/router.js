@@ -4,27 +4,27 @@ const path = require('path');
 
 // 회원가입
 const registerRouter = require('./register');
-router.use('/register', [registerRouter]);
+router.use('/register', registerRouter);
 
 // 로그인, 로그아웃
 const authRouter = require('./auth');
-router.use('/auth', [authRouter]);
+router.use('/auth', authRouter);
 
 // 새 글
 const newRouter = require('./new');
-router.use('/new', [newRouter]);
+router.use('/new', newRouter);
 
 // 게시글 관련
 const listRouter = require('./list');
-router.use('/list', [listRouter]);
+router.use('/list', listRouter);
 
 // 댓글 관련
 const commentRouter = require('./comment');
-router.use('/comment', [commentRouter]);
+router.use('/comment', commentRouter);
 
 // 유저 정보
 const userRouter = require('./user');
-router.use('/user', [userRouter]);
+router.use('/user', userRouter);
 
 // 상세 페이지
 router.get('/:Id', (req, res) => {

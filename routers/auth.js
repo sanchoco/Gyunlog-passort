@@ -13,11 +13,8 @@ router.post(
 	'/login',
 	passport.authenticate('local', {
 		failureRedirect: '/auth'
-	}),
-	(req, res) => {
-		req.session.save(() => {
-			res.redirect('/');
-		});
+	}),	(req, res) => {
+		res.redirect('/');
 	}
 );
 
@@ -27,9 +24,7 @@ router.get('/logout', async (req, res) => {
 		if (req.session) {
 			req.session.destroy();
 		}
-		req.session.save(function () {
-			res.redirect(req.headers.referer);
-		});
+		res.redirect(req.headers.referer);
 	} catch (err) {
 		res.redirect(req.headers.referer);
 	}
