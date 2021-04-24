@@ -2,7 +2,7 @@
 >로그인하여 글을 남겨보세요! 😀   
 
 ## 설명
-- 아래 JWT 토큰 방식 인증의 프로젝트를 passport(세션, 쿠키)로 리팩토링하고 소셜 로그인을 추가한 프로젝트입니다.
+- JSON Web Token 인증 방식의 기존 프로젝트를 passport(세션, 쿠키)로 리팩토링하고 소셜 로그인을 추가한 프로젝트입니다.
 - https://github.com/sanchoco/Gyunlog
 
 ## 구현 화면
