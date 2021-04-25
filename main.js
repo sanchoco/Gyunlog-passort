@@ -27,7 +27,7 @@ app.use(
 	})
 );
 
-const { passport } = require('./lib/passport');
+const passport = require('./lib/passport');
 app.use(passport.initialize());
 app.use(passport.session());
 
