@@ -19,6 +19,7 @@ function register() {
 			if (response.msg == 'success') {
 				alert('회원가입 완료!');
 				success = true;
+				window.location.href = '/auth';
 			} else if (response.msg == 'empty') {
 				alert('빈 곳을 확인 해주세요.');
 			} else if (response.msg == 'wrong_id') {
