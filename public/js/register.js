@@ -5,7 +5,7 @@ function register() {
 	let password = $('#password').val();
 	let password_re = $('#password_re').val();
 	let nickname = $('#nickname').val();
-
+	let success = false;
 	$.ajax({
 		type: 'POST',
 		url: `/register`,
@@ -18,7 +18,7 @@ function register() {
 		success: function (response) {
 			if (response.msg == 'success') {
 				alert('회원가입 완료!');
-				window.location.href = '/login';
+				success = true;
 			} else if (response.msg == 'empty') {
 				alert('빈 곳을 확인 해주세요.');
 			} else if (response.msg == 'wrong_id') {
@@ -38,4 +38,7 @@ function register() {
 			}
 		}
 	});
+	if (success) {
+		window.location.href = '/auth';
+	}
 }

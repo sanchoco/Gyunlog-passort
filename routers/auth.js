@@ -25,9 +25,9 @@ router.get('/logout', async (req, res) => {
 		if (req.session) {
 			req.session.destroy();
 		}
-		res.redirect(req.headers.referer);
+		res.redirect('/');
 	} catch (err) {
-		res.redirect(req.headers.referer);
+		res.redirect('/');
 	}
 });
 
