@@ -5,12 +5,13 @@
 - JSON Web Token 인증 방식의 기존 프로젝트를 passport(세션, 쿠키) 인증으로 리팩토링, 소셜 로그인을 추가한 프로젝트입니다.
 - https://github.com/sanchoco/Gyunlog
 
-## 구현 화면
-![ezgif-3-fcb76ddd2d2e](https://user-images.githubusercontent.com/58046372/113247144-5bd10580-92f5-11eb-93e2-26127610c366.gif)
+## 소셜 로그인 추가
+![스크린샷 2021-06-14 오전 10 29 00](https://user-images.githubusercontent.com/58046372/121828756-79f6b100-ccfb-11eb-836c-e949378278a5.png)
+
 
 ## 사용한 것
 Javascript, Node.js, mongoDB, Passport(Session-Cookie)
-   
+
    
 ## 주요 기능
 - **메인 페이지(글 목록)**: 누구나 글 목록을 확인하고 클릭하여 상세 내용을 확인할 수 있어요.
